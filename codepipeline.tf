@@ -31,7 +31,7 @@ resource "aws_iam_role_policy" "codebuild" {
     Statement = [
       {
         Effect   = "Allow",
-        Action   = ["logs:CreateLogGroup","logs:CreateLogStream","logs:PutLogEvents"],
+        Action   = ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"],
         Resource = "*"
       },
       {
@@ -40,16 +40,16 @@ resource "aws_iam_role_policy" "codebuild" {
         Resource = "*"
       },
       {
-        Effect   = "Allow",
-        Action   = [
-          "ecr:BatchCheckLayerAvailability","ecr:CompleteLayerUpload","ecr:InitiateLayerUpload",
-          "ecr:BatchGetImage","ecr:PutImage","ecr:UploadLayerPart","ecr:DescribeRepositories"
+        Effect = "Allow",
+        Action = [
+          "ecr:BatchCheckLayerAvailability", "ecr:CompleteLayerUpload", "ecr:InitiateLayerUpload",
+          "ecr:BatchGetImage", "ecr:PutImage", "ecr:UploadLayerPart", "ecr:DescribeRepositories"
         ],
         Resource = aws_ecr_repository.app.arn
       },
       {
-        Effect   = "Allow",
-        Action   = ["s3:*"],
+        Effect = "Allow",
+        Action = ["s3:*"],
         Resource = [
           aws_s3_bucket.artifacts.arn,
           "${aws_s3_bucket.artifacts.arn}/*"

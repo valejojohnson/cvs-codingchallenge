@@ -29,8 +29,8 @@ resource "aws_iam_role_policy" "pipeline" {
     Version = "2012-10-17",
     Statement = [
       {
-        Effect   = "Allow",
-        Action   = ["s3:*"],
+        Effect = "Allow",
+        Action = ["s3:*"],
         Resource = [
           aws_s3_bucket.artifacts.arn,
           "${aws_s3_bucket.artifacts.arn}/*"
@@ -43,12 +43,12 @@ resource "aws_iam_role_policy" "pipeline" {
       },
       {
         Effect   = "Allow",
-        Action   = ["codebuild:BatchGetBuilds","codebuild:StartBuild"],
+        Action   = ["codebuild:BatchGetBuilds", "codebuild:StartBuild"],
         Resource = aws_codebuild_project.docker.arn
       },
       {
-        Effect   = "Allow",
-        Action   = [
+        Effect = "Allow",
+        Action = [
           "ecs:DescribeServices",
           "ecs:DescribeTaskDefinition",
           "ecs:RegisterTaskDefinition",

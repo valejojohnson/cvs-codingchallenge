@@ -79,3 +79,8 @@ data "aws_iam_policy_document" "pipeline_assume" {
     }
   }
 }
+
+data "aws_region" "current" {}
+data "aws_route_tables" "all_in_vpc" {
+  vpc_id = data.aws_vpc.default.id
+}

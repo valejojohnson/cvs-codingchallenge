@@ -58,7 +58,7 @@ resource "aws_lb" "app" {
 
 resource "aws_lb_target_group" "app" {
   name        = "guessing-game-tg"
-  port        = 8080
+  port        = 80
   protocol    = "HTTP"
   target_type = "ip"
   vpc_id      = data.aws_vpc.default.id
@@ -108,18 +108,19 @@ resource "aws_ecs_task_definition" "app" {
       essential = true,
       portMappings = [
         {
-          containerPort = 8080,
+          containerPort = 80,
+          hostPort      = 80
           protocol      = "tcp"
         }
       ],
       environment = [
-        { name = "PORT", value = "8080" }
+        { name = "PORT", value = "80" }
       ],
       logConfiguration = {
         logDriver = "awslogs",
         options = {
           awslogs-group         = aws_cloudwatch_log_group.app.name,
-          awslogs-region        = "us-east-1",
+          awslogs-region        = "us-west-1",
           awslogs-stream-prefix = "guessing-game"
         }
       }
