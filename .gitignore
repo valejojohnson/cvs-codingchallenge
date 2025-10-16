@@ -1,0 +1,100 @@
+# ===========================
+# Terraform
+# ===========================
+# Local .terraform directories
+.terraform/
+.terraform.lock.hcl
+
+# Terraform state files
+terraform.tfstate
+terraform.tfstate.*
+*.tfstate.backup
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Sensitive variable files
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Plan outputs
+*.tfplan
+plan.out
+
+# ===========================
+# AWS / Credentials
+# ===========================
+# AWS credentials or config
+.aws/
+*.pem
+*.key
+*.crt
+*.cer
+*.p12
+*.der
+*.csr
+*.pub
+
+# ===========================
+# CodeBuild / Docker
+# ===========================
+# Docker build cache
+**/Dockerfile.*
+**/.dockerignore
+**/build/
+**/dist/
+**/.cache/
+**/__pycache__/
+*.tar
+*.gz
+
+# Python compiled files (for guessing_game_computer.py)
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# ===========================
+# Logs and system files
+# ===========================
+*.log
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+
+# ===========================
+# IDE and editor files
+# ===========================
+.vscode/
+.idea/
+*.iml
+*.code-workspace
+
+# ===========================
+# CI/CD and build outputs
+# ===========================
+# CodeBuild intermediate files
+codebuild/
+buildspec-generated.yml
+codepipeline-artifacts/
+artifacts/
+
+# ===========================
+# Project-specific ignore
+# ===========================
+# Prevent accidentally pushing local scripts or creds
+local.sh
+deploy.sh
+.env
+.env.*
+
+# Ignore zipped bundles or local archives
+*.zip
+*.tgz
+*.tar.gz
