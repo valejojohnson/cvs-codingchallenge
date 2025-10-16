@@ -6,7 +6,7 @@ from flask import Flask, request, redirect, url_for, render_template_string, jso
 app = Flask(__name__)
 
 # ---- single-game, in-memory state ----
-MAX_NUMBER = int(os.environ.get("MAX_NUMBER", "100"))
+MAX_NUMBER = int(os.environ.get("MAX_NUMBER", "10"))
 _game_lock = threading.Lock()   # protects the state below
 _target = random.randint(1, MAX_NUMBER)
 _tries = 0
@@ -96,4 +96,4 @@ def health():
     return jsonify(ok=True), 200
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", "8080")))
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", "80")))

@@ -58,7 +58,7 @@ variable "tags" {
 variable "codestar_connection_arn" {
   description = "Existing CodeStar (CodeConnections) ARN to GitHub"
   type        = string
-  default     = "arn:aws:codeconnections:us-east-1:223553688319:connection/86c61d10-a3d7-4871-9a7e-d8fb3f99faa8"
+  sensitive   = true
 }
 
 variable "github_owner" {

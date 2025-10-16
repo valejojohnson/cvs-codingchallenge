@@ -47,6 +47,6 @@ resource "aws_cloudwatch_log_group" "this" {
 
   # Prevent accidental deletion of historical logs on destroy
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }
