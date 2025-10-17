@@ -32,4 +32,3 @@ module "important_logline_alarm" {
   sns_topic_name   = "critical-payment-failures"
   alarm_name       = "critical-payment-failures-gt10-in-60s"
 }
-}
