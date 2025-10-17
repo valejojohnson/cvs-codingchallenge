@@ -13,29 +13,23 @@ terraform {
 
 
 # Calling the Cloudwatch module
-module "cw_log_failures" {
-  source = "./modules/cloudwatch_metric_alarm"
+module "important_logline_alarm" {
+  source = "./modules/logline_alarm"
 
-  # Log group settings
-  log_group_name    = "/aws/lambda/logging-in"
-  create_log_group  = true
-  retention_in_days = 30
+  # Target log group
+  log_group_name    = "/aws/lambda/error-service"
+  create_log_group  = true        # set true if you want this module to create it
+  retention_in_days = 3
 
-  # Filter -> metric
-  filter_pattern   = "{ ($.status = \"Failed\") }"
-  metric_name      = "LoginFailures"
-  metric_namespace = "MyService"
+  filter_pattern = "\"CRITICAL: Payment failed\""
 
-  # Alarm
-  sns_topic_name       = "myservice-alerts"
-  alarm_name           = "LoginFailuresAlarm"
-  alarm_description    = "Triggers when login failures are detected."
-  comparison_operator  = "GreaterThanOrEqualToThreshold"
-  threshold            = 1
-  evaluation_periods   = 1
-  period               = 60
-  statistic            = "Sum"
-  treat_missing_data   = "notBreaching"
-  datapoints_to_alarm  = 1
-  alarm_actions_enabled = true
+  # Email destination (must confirm the subscription email once)
+  alert_email     = "ochin@googly.net"
+
+  # (Optional) naming tweaks
+  metric_name      = "CriticalPaymentFailures"
+  metric_namespace = "ErrorService"
+  sns_topic_name   = "critical-payment-failures"
+  alarm_name       = "critical-payment-failures-gt10-in-60s"
+}
 }
