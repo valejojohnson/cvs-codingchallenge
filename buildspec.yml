@@ -1,20 +1,38 @@
 version: 0.2
+
+env:
+  shell: bash
+  variables:
+    PLATFORMS: "linux/amd64,linux/arm64"
+
 phases:
+  install:
+    runtime-versions:
+      docker: 20
+    commands:
+      - echo "Setting up Docker Buildx for multi-arch builds"
+      - docker buildx create --use || true
+      - docker run --privileged --rm tonistiigi/binfmt --install all
   pre_build:
     commands:
+      - echo "Logging in to Amazon ECR..."
       - aws --version
-      - echo "Login to ECR"
-      - aws ecr get-login-password | docker login --username AWS --password-stdin $ECR_REPO_URL
-      - IMAGE_TAG=${CODEBUILD_RESOLVED_SOURCE_VERSION:-latest}
+      - aws ecr get-login-password --region "$AWS_DEFAULT_REGION" | docker login --username AWS --password-stdin "$ECR_REPO_URL"
+      - IMAGE_TAG="${CODEBUILD_RESOLVED_SOURCE_VERSION:-latest}"
       - echo "IMAGE_TAG=$IMAGE_TAG"
   build:
     commands:
-      - docker build -t $ECR_REPO_URL:$IMAGE_TAG .
+      - echo "Building and pushing Docker image..."
+      - >
+        docker buildx build
+        --platform "$PLATFORMS"
+        -t "$ECR_REPO_URL:$IMAGE_TAG"
+        -t "$ECR_REPO_URL:latest"
+        --push
+        .
   post_build:
     commands:
-      - docker push $ECR_REPO_URL:$IMAGE_TAG
-      - docker tag  $ECR_REPO_URL:$IMAGE_TAG $ECR_REPO_URL:latest
-      - docker push $ECR_REPO_URL:latest
+      - echo "Writing imagedefinitions.json for ECS deployment"
       - printf '[{"name":"%s","imageUri":"%s"}]' "$APP_NAME" "$ECR_REPO_URL:$IMAGE_TAG" > imagedefinitions.json
 artifacts:
   files:
