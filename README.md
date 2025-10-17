@@ -6,7 +6,17 @@ This repo represents a realistic end-to-end DevOps workflow: from infrastructure
 
 ---
 
-## 🎯 Mission Recap
+## 🚀 Quick Start (One Liner)
+
+Clone the repo and deploy:
+
+```bash
+git clone https://github.com/valejojohnson/cvs-codingchallenge.git && terraform init && terraform apply
+```
+
+---
+
+## 🎯 Task Recap
 
 Here’s what this project was designed to accomplish:
 
@@ -77,12 +87,3 @@ Here’s what this project was designed to accomplish:
     - If a specific log line occurs more than 10 times/minute, an **SNS alert** is sent
 
 ---
-
-## 🚀 Quick Start
-
-Clone the repo and deploy:
-
-```bash
-terraform init
-terraform plan
-terraform apply
